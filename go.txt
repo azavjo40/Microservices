@@ -1,0 +1,10 @@
+node-docker-example/
+│
+├── app-one/
+│   ├── Dockerfile
+│   ├── index.js
+│   ├── package.json
+│   └── package-lock.json
+│
+├── docker-compose.yml
+└── .env
