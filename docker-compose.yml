@@ -1,21 +1,20 @@
 version: '3'
 services:
-  appOneDb:
-    image: postgres:13
+  postgres:
+    image: postgres:14-alpine
     ports:
       - 5432:5432
     volumes:
-      - ./pgdata:/var/lib/postgresql/data
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ~/apps/postgres:/var/lib/postgresql/data
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: appOneDb
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=postgres
   app-one:
     build: ./app-one
     ports:
       - "3002:3000"
     depends_on:
-      - appOneDb
+      - postgres
     volumes:
       - ./app-one:/usr/src/app
