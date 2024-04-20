@@ -1,4 +1,5 @@
 version: '3.9'
+
 services:
   db:
     image: postgres:15.3-alpine3.18
@@ -10,40 +11,54 @@ services:
       - '5432:5432'
     volumes: 
       - ./db:/var/lib/postgresql/data
-      
+    networks:
+      - microservices
+
   app-one:
     build: ./app-one
     ports:
       - "3001:3000"
     depends_on:
       - db
-  auth-swrvice:
-    build: ./auth-swrvice
+    networks:
+      - microservices
+
+  auth-service:
+    build: ./auth-service
     ports:
       - "3002:3000"
     depends_on:
-      - db    
-  order-swrvice:
-    build: ./order-swrvice
+      - db
+    networks:
+      - microservices
+
+  order-service:
+    build: ./order-service
     ports:
       - "3003:3000"
     depends_on:
-      - db    
-  product-swrvice:
-    build: ./product-swrvice
+      - db
+    networks:
+      - microservices
+
+  product-service:
+    build: ./product-service
     ports:
       - "3004:3000"
     depends_on:
-      - db   
-  user-swrvice:
-    build: ./user-swrvice
+      - db
+    networks:
+      - microservices
+
+  user-service:
+    build: ./user-service
     ports:
       - "3005:3000"
     depends_on:
-      - db             
-    volumes:
-      - ./app-one:/usr/src/app
-      - ./auth-swrvice:/usr/src/app
-      - ./order-swrvice:/usr/src/app
-      - ./product-swrvice:/usr/src/app
-      - ./user-swrvice:/usr/src/app
+      - db
+    networks:
+      - microservices
+
+networks:
+  microservices:
+    driver: bridge
