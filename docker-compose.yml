@@ -1,6 +1,6 @@
 version: '3.9'
 services:
-  app-one-db:
+  db:
     image: postgres:15.3-alpine3.18
     restart: always
     environment:
@@ -16,6 +16,6 @@ services:
     ports:
       - "3002:3000"
     depends_on:
-      - app-one-db
+      - db
     volumes:
       - ./app-one:/usr/src/app
