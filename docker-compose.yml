@@ -12,7 +12,7 @@ services:
     volumes: 
       - ./db:/var/lib/postgresql/data
     networks:
-      - microservices
+      - Microservices
 
   app-one:
     build: ./app-one
@@ -21,7 +21,7 @@ services:
     depends_on:
       - db
     networks:
-      - microservices
+      - Microservices
 
   auth-service:
     build: ./auth-service
@@ -30,7 +30,7 @@ services:
     depends_on:
       - db
     networks:
-      - microservices
+      - Microservices
 
   order-service:
     build: ./order-service
@@ -39,7 +39,7 @@ services:
     depends_on:
       - db
     networks:
-      - microservices
+      - Microservices
 
   product-service:
     build: ./product-service
@@ -48,7 +48,7 @@ services:
     depends_on:
       - db
     networks:
-      - microservices
+      - Microservices
 
   user-service:
     build: ./user-service
@@ -57,7 +57,7 @@ services:
     depends_on:
       - db
     networks:
-      - microservices
+      - Microservices
 
 networks:
   microservices:
