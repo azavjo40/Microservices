@@ -11,7 +11,6 @@ services:
       - '5432:5432'
     volumes: 
       - ./db:/var/lib/postgresql/data
-      - ./pg_hba.conf:/etc/postgresql/pg_hba.conf
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - microservices
