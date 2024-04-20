@@ -1,0 +1,9 @@
+/node_modules/
+/.idea
+/dist/
+docker/pgdata
+docker/.env
+/.env
+package-lock.json
+/db
+
