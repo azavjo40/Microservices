@@ -14,8 +14,36 @@ services:
   app-one:
     build: ./app-one
     ports:
-      - "3002:3000"
+      - "3001:3000"
     depends_on:
       - db
+  auth-swrvice:
+    build: ./auth-swrvice
+    ports:
+      - "3002:3000"
+    depends_on:
+      - db    
+  order-swrvice:
+    build: ./order-swrvice
+    ports:
+      - "3003:3000"
+    depends_on:
+      - db    
+  product-swrvice:
+    build: ./product-swrvice
+    ports:
+      - "3004:3000"
+    depends_on:
+      - db   
+  user-swrvice:
+    build: ./user-swrvice
+    ports:
+      - "3005:3000"
+    depends_on:
+      - db             
     volumes:
       - ./app-one:/usr/src/app
+      - ./auth-swrvice:/usr/src/app
+      - ./order-swrvice:/usr/src/app
+      - ./product-swrvice:/usr/src/app
+      - ./user-swrvice:/usr/src/app

@@ -8,3 +8,24 @@ node-docker-example/
 │
 ├── docker-compose.yml
 └── .env
+
+///////////////////
+
+microservices/
+├── api-gateway/
+│   ├── Dockerfile
+│   └── index.js
+├── auth-service/
+│   ├── Dockerfile
+│   └── index.js
+├── product-service/
+│   ├── Dockerfile
+│   └── index.js
+├── order-service/
+│   ├── Dockerfile
+│   └── index.js
+├── user-service/
+│   ├── Dockerfile
+│   └── index.js
+└── docker-compose.yml
+
