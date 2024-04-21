@@ -8,11 +8,7 @@ const port = 3000;
 console.log('app-one')
 
 const pool = new Pool({
-  user: 'postgres',
-  password: 'postgres',
-  host: 'db',
-  port: 5432,
-  database: 'postgres'
+  connectionString:  process.env.DATABASE_URL,
 });
 
 app.get('/', async (req, res) => {
