@@ -4,17 +4,36 @@ services:
   db:
     image: postgres:15.3-alpine3.18
     restart: always
-    # env_file:
-    #   - .env
     environment:
-      - POSTGRES_USER==${POSTGRES_USER}
-      - POSTGRES_PASSWORD==${POSTGRES_PASSWORD}
-      - POSTGRES_HOST_AUTH_METHOD==${POSTGRES_HOST_AUTH_METHOD}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_HOST_AUTH_METHOD=${POSTGRES_HOST_AUTH_METHOD}
     ports:
       - '5423:5432'
     volumes: 
       - ./db:/var/lib/postgresql/data
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - microservices
+
+  kafka:
+    image: wurstmeister/kafka:latest
+    ports:
+      - "9092:9092"
+    environment:
+      - KAFKA_ADVERTISED_LISTENERS=${KAFKA_ADVERTISED_LISTENERS}
+      - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=${KAFKA_LISTENER_SECURITY_PROTOCOL_MAP}
+      - KAFKA_INTER_BROKER_LISTENER_NAME=${KAFKA_INTER_BROKER_LISTENER_NAME}
+      - KAFKA_AUTO_CREATE_TOPICS_ENABLE=${KAFKA_AUTO_CREATE_TOPICS_ENABLE}
+      - KAFKA_ZOOKEEPER_CONNECT=${KAFKA_ZOOKEEPER_CONNECT}
+      - KAFKA_CREATE_TOPICS=${KAFKA_CREATE_TOPICS}
+    networks:
+      - microservices
+
+  zookeeper:
+    image: wurstmeister/zookeeper:latest
+    ports:
+      - "2181:2181"
     networks:
       - microservices
 
@@ -24,6 +43,7 @@ services:
       - "3001:3000"
     depends_on:
       - db
+      - kafka
     volumes:
       - ./db:/usr/src/app/db
     networks:
@@ -35,6 +55,7 @@ services:
       - "3002:3000"
     depends_on:
       - db
+      - kafka
     volumes:
       - ./db:/usr/src/app/db
     networks:
@@ -46,6 +67,7 @@ services:
       - "3003:3000"
     depends_on:
       - db
+      - kafka
     volumes:
       - ./db:/usr/src/app/db
     networks:
@@ -57,6 +79,7 @@ services:
       - "3004:3000"
     depends_on:
       - db
+      - kafka
     volumes:
       - ./db:/usr/src/app/db
     networks:
@@ -68,6 +91,7 @@ services:
       - "3005:3000"
     depends_on:
       - db
+      - kafka
     volumes:
       - ./db:/usr/src/app/db
     networks:
